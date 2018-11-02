@@ -1,7 +1,10 @@
 // create Wrapper componenet
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Layout } from 'antd';
+
+import { signoutUser } from '../../actions/auth';
 
 import Sider from './Sider';
 import StyledHeader from './Header';
@@ -35,9 +38,9 @@ class DashboardTemplate extends React.Component {
         return (
             <Wrapper>
                 <Layout style={{ height: '100%' }}>
-                    <Sider />
+                    <Sider auth={this.props.auth} />
                     <Layout>
-                        <StyledHeader />
+                        <StyledHeader signoutUser={this.props.signoutUser} />
                         <StyledContent>
                             {this.props.children}
                         </StyledContent>
@@ -48,4 +51,8 @@ class DashboardTemplate extends React.Component {
     }
 }
 
-export default (DashboardTemplate);
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, { signoutUser })(DashboardTemplate);

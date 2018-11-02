@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { signinUser } from '../actions';
+import { signinUser } from '../actions/auth';
 
 import { Form, Icon, Input, Button, Layout, Alert } from 'antd';
 const FormItem = Form.Item;

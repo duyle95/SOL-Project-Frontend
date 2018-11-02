@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentUser } from '../actions';
+import { getCurrentUser } from '../../actions/auth';
 
 export default function(ComposedComponent) {
     class isAuthenticated extends React.Component {
@@ -12,13 +12,6 @@ export default function(ComposedComponent) {
                 this.props.getCurrentUser();
             }
         }
-
-        // static getDerivedStateFromProps(nextProps, prevState) {
-        //     if (!nextProps.isAuthenticated) {
-        //         nextProps.history.push('/');
-        //     }
-        //     return null;
-        // }
 
         render() {
             return <ComposedComponent {...this.props} />;

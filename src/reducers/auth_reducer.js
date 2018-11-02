@@ -2,9 +2,7 @@ import {
     SIGNIN_REQUEST,
     SIGNIN_SUCCESS,
     SIGNIN_FAILURE,
-    SIGNOUT_FAILURE,
     SIGNOUT_SUCCESS,
-    SIGNOUT_REQUEST,
     SIGNUP_FAILURE,
     SIGNUP_SUCCESS,
     SIGNUP_REQUEST,
@@ -28,11 +26,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, ...action.payload };
         case SIGNIN_FAILURE:
             return { ...state, ...action.payload };
-        case SIGNOUT_FAILURE:
-            return { ...state, ...action.payload };
         case SIGNOUT_SUCCESS:
-            return { ...state, ...action.payload };
-        case SIGNOUT_REQUEST:
             return { ...state, ...action.payload };
         case SIGNUP_FAILURE:
             return { ...state, ...action.payload };

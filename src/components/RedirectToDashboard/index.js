@@ -10,13 +10,6 @@ export default function(ComposedComponent) {
             }
         }
 
-        // static getDerivedStateFromProps(nextProps, prevState) {
-        //     if (!nextProps.isAuthenticated) {
-        //         nextProps.history.push('/');
-        //     }
-        //     return null;
-        // }
-
         render() {
             return <ComposedComponent {...this.props} />;
         }

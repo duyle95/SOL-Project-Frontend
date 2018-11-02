@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Form, Icon, Input, Button, Layout, Radio, Alert, Divider, Tooltip } from 'antd';
 
-import { signupUser } from '../actions';
+import { signupUser } from '../actions/auth';
 const FormItem = Form.Item;
 
 const Wrapper = styled(Layout)`
@@ -32,6 +32,13 @@ const SignupFormItems = ({ userRole: role, getFieldDecorator, comparePassword })
                         rules: [{ required: true, message: 'Please input your company code!' }],
                     })(
                         <Input prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Company code" />
+                    )}
+                </FormItem>
+                <FormItem label="Full name">
+                    {getFieldDecorator('full_name', {
+                        rules: [{ required: true, message: 'Please input your name!'}],
+                    })(
+                        <Input prefix={<Icon type="user-add" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Your fullname" />
                     )}
                 </FormItem>
                 <FormItem label="Email">
@@ -125,8 +132,8 @@ class Signup extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                const { email, password, company_code, company_name } = values;
-                this.props.signupUser({ user: {email, password, role: this.state.role, company_code }, company: { company_name }}, () => this.props.history.push("/dashboard"));
+                const { email, password, company_code, company_name, full_name } = values;
+                this.props.signupUser({ user: {full_name, email, password, role: this.state.role, company_code }, company: { company_name }}, () => this.props.history.push("/dashboard"));
             }
         });
     }

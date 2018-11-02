@@ -1,11 +1,11 @@
-// Create here any components that should be inside Sider
 import React from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Layout } from 'antd';
 
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 const mobileDevice = '(min-width: 320px) and (max-width: 900px)';
 
 const Logo = styled.div`
@@ -20,13 +20,14 @@ const Logo = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const StyledSider = styled(Sider)`
     @media ${mobileDevice} {
         position: absolute !important;
         height: 100vh !important;
-        z-index: 1;
+        z-index: 2;
     }
 `;
 
@@ -70,28 +71,29 @@ class CustomSider extends React.Component {
                     </Menu.Item>,
                     <Menu.Item key="3">
                         <Icon type="file-text" />
-                        <span>Employees'shift preference</span>
+                        <span>Employees' shift preference</span>
                     </Menu.Item>,
                     <Menu.Item key="4">
                         <Icon type="project" />
                         <span>Events</span>
                     </Menu.Item>
                 ];
+            // NOTE: https://github.com/ant-design/ant-design/issues/6576#issuecomment-398355506
             case "basic":
                 return [
                     <Menu.Item key="1">
                         <Icon type="schedule" />
                         <span>Shifts</span>
                     </Menu.Item>,
-                    <Menu.Item key="2">
-                        <Icon type="form" />
-                        <span>Shift Replacement</span>
-                    </Menu.Item>,
-                    <Menu.Item key="3">
-                        <Icon type="form" />
-                        <span>Shift Preference</span>
-                    </Menu.Item>,
-                    <Menu.Item key="4">
+                    <SubMenu key="sub1" title={<span><Icon type="form" /><span>Shift Replacement</span></span>}>
+                        <Menu.Item key="2" onClick={() => this.props.history.push("/replacement/new")}>Fill in Replacement Form</Menu.Item>
+                        <Menu.Item key="3">Your replacement requests</Menu.Item>
+                    </SubMenu>,
+                    <SubMenu key="sub2" title={<span><Icon type="form" /><span>Shift Preference</span></span>}>
+                        <Menu.Item key="4">Change your shift preference</Menu.Item>
+                        <Menu.Item key="5">Your current shift preference</Menu.Item>
+                    </SubMenu>,
+                    <Menu.Item key="6">
                         <Icon type="project" />
                         <span>Events</span>
                     </Menu.Item>
@@ -112,10 +114,10 @@ class CustomSider extends React.Component {
                     <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                 </SiderTrigger>
                 
-                <Logo collapsed={this.state.collapsed}>
+                <Logo collapsed={this.state.collapsed} onClick={() => this.props.history.push("/dashboard")}>
                     SOL PROJECT
                 </Logo>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+                <Menu theme="dark" mode="inline">
                     {this.renderMenuItems()}
                 </Menu>
             </StyledSider>
@@ -131,8 +133,4 @@ CustomSider.propTypes = {
     })
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth
-})
-
-export default connect(mapStateToProps, null)(CustomSider);
+export default withRouter(CustomSider);
