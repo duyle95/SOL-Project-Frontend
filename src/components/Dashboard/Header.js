@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Layout, Menu, Icon } from 'antd';
@@ -31,7 +30,7 @@ class CustomHeader extends React.Component {
                     <Menu.Item key="noti">
                         <Icon type="notification" />
                     </Menu.Item>
-                    <Menu.Item key="logout" onClick={() => this.props.signoutUser(() => this.props.history.push('/'))}>
+                    <Menu.Item key="logout" onClick={() => this.props.signoutUser()}>
                         <StyledLogout>
                             <Icon type="poweroff" />
                             <span>Logout</span>
@@ -45,8 +44,7 @@ class CustomHeader extends React.Component {
 }
 
 CustomHeader.propTypes = {
-    history: PropTypes.object.isRequired,
     signoutUser: PropTypes.func.isRequired
 }
 
-export default withRouter(CustomHeader);
+export default CustomHeader;

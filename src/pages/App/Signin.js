@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { signinUser } from '../actions/auth';
+// import { signinUser } from '../../actions/auth';
+import { signinUser } from '../../modular/ducks/auth';
 
 import { Form, Icon, Input, Button, Layout, Alert } from 'antd';
 const FormItem = Form.Item;
@@ -31,9 +32,7 @@ class Signin extends React.Component {
             if (!err) {
                 // console.log('Received values from form: ', values);
                 const { email, password } = values;
-                this.props.signinUser({email, password}, () => {
-                    this.props.history.push("/dashboard");
-                });
+                this.props.signinUser({email, password});
             }
         });
     }

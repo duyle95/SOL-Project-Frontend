@@ -1,38 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, compose, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
-import axios from "axios";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, compose, applyMiddleware } from 'redux'
+import reduxThunk from 'redux-thunk'
+import axios from 'axios'
+import axiosMiddleware from 'redux-axios-middleware'
 
-import './index.css';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
-import reducers from './reducers';
+import './index.css'
+import App from './components/App'
+import * as serviceWorker from './serviceWorker'
+import reducers from './modular'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const client = axios.create({
+  baseURL: process.env.REACT_APP_BACK_END_URL,
+  responseType: 'json',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+})
 
-// check if there is a 'token' in the local storage
-// if yes set up 'authorization' headers for axios and initialState
-const token = localStorage.getItem("token");
-let initialState;
-if (token) {
-    axios.defaults.headers.common["authorization"] = token;
-    initialState = { auth: { isFetching: false, isAuthenticated: true, errorMessage: "", user: {} }};
-} else {
-    delete axios.defaults.headers.common["authorization"];
-    initialState = {}
-}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxThunk)));
+const store = createStore(
+  reducers,
+  {},
+  composeEnhancers(applyMiddleware(reduxThunk, axiosMiddleware(client)))
+)
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
-, document.getElementById('root'));
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.unregister()

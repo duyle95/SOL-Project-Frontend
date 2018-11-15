@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+// import { toDashboard } from '../../actions/auth';
+import { toDashboard } from '../../modular/ducks/auth';
 
 export default function(ComposedComponent) {
     class redirectToDashboard extends React.Component {
-        state = {};
         componentDidMount() {
-            if (this.props.isAuthenticated) {
-                this.props.history.push('/dashboard');
-            }
+            this.props.toDashboard();
         }
 
         render() {
@@ -15,11 +14,5 @@ export default function(ComposedComponent) {
         }
     }
 
-    const mapStateToProps = state => {
-        return {
-            isAuthenticated: state.auth.isAuthenticated
-        }
-    }
-
-    return connect(mapStateToProps, null)(redirectToDashboard);
+    return connect(null, {toDashboard})(redirectToDashboard);
 }
