@@ -1,7 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
+import history from '../../services/history';
 
-import { apiCall } from '../../services/api'
-import history from '../../services/history'
 
 // Action Types
 const SIGNIN_REQUEST = 'auth/SIGNIN_REQUEST'
@@ -126,6 +125,7 @@ export const getCurrentUser = () => async dispatch => {
 export const signupUser = data => async dispatch => {
   dispatch(requestSignup())
   let response
+  console.log(process.env);
   try {
     response = await axios.post(
       `${process.env.REACT_APP_BACK_END_URL}/api/${data.user.role}/signup`,
