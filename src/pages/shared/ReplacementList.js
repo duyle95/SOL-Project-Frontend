@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import DashboardTemplate from '../../components/Dashboard'
 import ReplacementFormList from '../../components/ReplacementFormList'
 import {
     computedReplacementForms,
     startReplacementListView,
 } from '../../modular/ducks/replacement'
-import DashboardTemplate from '../../components/Dashboard'
 
 class ReplacementList extends React.Component {
     componentDidMount() {
@@ -16,7 +15,7 @@ class ReplacementList extends React.Component {
     render() {
         return (
             <DashboardTemplate>
-                {/* TODO: when the replacement form database gets larger, use pagination and limit api call for better rendering */}
+                {/* when the replacement form database gets larger, use pagination and limit api call for better performance */}
                 <ReplacementFormList
                     forms={this.props.replacementForms}
                     basicUserList={this.props.basicUserList}

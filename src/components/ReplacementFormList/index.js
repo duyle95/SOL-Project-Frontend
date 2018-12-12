@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Table } from 'antd'
-import moment from 'moment'
-import history from '../../services/history'
+import { Table } from 'antd';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import React from 'react';
+import history from '../../services/history';
 
 // https://coolors.co/001529-f0f2f5-afc2d5-ccddd3-dfefca
 class ReplacementFormList extends React.Component {
@@ -101,6 +101,7 @@ class ReplacementFormList extends React.Component {
             }
             // TODO: 'Pending' or 'Change Requested': editable and deleteable, 'Declined' or 'Accepted: deleteable
             // TODO: Change pointer: cursor to the p element
+            // TODO: admin should be 'reply' not 'edit'
           },
         },
       ],

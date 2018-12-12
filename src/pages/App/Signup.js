@@ -1,22 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { connect } from 'react-redux'
+import { Alert, Button, Divider, Form, Layout, message, Radio } from 'antd'
 import PropTypes from 'prop-types'
-
-import {
-    Form,
-    Icon,
-    Input,
-    Button,
-    Layout,
-    Radio,
-    Alert,
-    Divider,
-    Tooltip,
-} from 'antd'
-
-// import { signupUser } from '../../actions/auth';
+import React from 'react'
+import { connect } from 'react-redux'
+import styled from 'styled-components'
+import SignupFormItem from '../../components/SignupFormItem'
 import { signupUser } from '../../modular/ducks/auth'
+
 const FormItem = Form.Item
 
 const Wrapper = styled(Layout)`
@@ -24,219 +13,6 @@ const Wrapper = styled(Layout)`
     align-items: center;
     min-height: 100vh !important;
 `
-
-const SignupFormItems = ({
-    userRole: role,
-    getFieldDecorator,
-    comparePassword,
-}) => {
-    if (role === 'basic') {
-        return (
-            <div>
-                <FormItem
-                    label={
-                        <span>
-                            Company code&nbsp;
-                            <Tooltip title="Not sure what this is? Ask your company admin for the code">
-                                <Icon type="question-circle-o" />
-                            </Tooltip>
-                        </span>
-                    }
-                >
-                    {getFieldDecorator('company_code', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your company code!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="code"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            placeholder="Company code"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Full name">
-                    {getFieldDecorator('full_name', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your name!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="user-add"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            placeholder="Your fullname"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Email">
-                    {getFieldDecorator('email', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your email!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="user"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            placeholder="Email"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Password">
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your Password!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="lock"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            type="password"
-                            placeholder="Password"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Confirm password">
-                    {getFieldDecorator('confirm', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please confirm your Password!',
-                            },
-                            { validator: comparePassword },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="lock"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            type="password"
-                            placeholder="Confirm password"
-                        />
-                    )}
-                </FormItem>
-            </div>
-        )
-    } else if (role === 'admin') {
-        return (
-            <div>
-                <FormItem label="Company name">
-                    {getFieldDecorator('company_name', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input the company name!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="team"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            placeholder="Company name"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Email">
-                    {getFieldDecorator('email', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your email!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="user"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            placeholder="Email"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Password">
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your Password!',
-                            },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="lock"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            type="password"
-                            placeholder="Password"
-                        />
-                    )}
-                </FormItem>
-                <FormItem label="Confirm password">
-                    {getFieldDecorator('confirm', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please confirm your Password!',
-                            },
-                            { validator: comparePassword },
-                        ],
-                    })(
-                        <Input
-                            prefix={
-                                <Icon
-                                    type="lock"
-                                    style={{ color: 'rgba(0,0,0,.25)' }}
-                                />
-                            }
-                            type="password"
-                            placeholder="Confirm password"
-                        />
-                    )}
-                </FormItem>
-            </div>
-        )
-    }
-}
 
 class Signup extends React.Component {
     state = {
@@ -285,12 +61,11 @@ class Signup extends React.Component {
                         },
                         company: { company_name },
                     },
-                    () => this.props.history.push('/dashboard')
+                    m => message.success(m)
                 )
             }
         })
     }
-    // TODO: use antd Message to show some indications that sign up is successful
     render() {
         const { getFieldDecorator } = this.props.form
         return (
@@ -319,13 +94,13 @@ class Signup extends React.Component {
                         </Radio.Group>
                     </FormItem>
                     {this.state.role === 'basic' ? (
-                        <SignupFormItems
+                        <SignupFormItem
                             userRole="basic"
                             getFieldDecorator={getFieldDecorator}
                             comparePassword={this.comparePassword}
                         />
                     ) : (
-                        <SignupFormItems
+                        <SignupFormItem
                             userRole="admin"
                             getFieldDecorator={getFieldDecorator}
                             comparePassword={this.comparePassword}
