@@ -1,63 +1,58 @@
 // create Wrapper componenet
+import { Layout } from 'antd'
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { Layout, message } from 'antd'
-
-// import { signoutUser } from '../../actions/auth';
-import history from '../../services/history'
-import { resetMessage } from '../../modular/ducks/message'
 import { signoutUser } from '../../modular/ducks/auth'
-
-import Sider from './Sider'
 import StyledHeader from './Header'
+import Sider from './Sider'
 
 const { Content } = Layout
 const mobileDevice = '(min-width: 320px) and (max-width: 900px)'
 const Wrapper = styled.div`
-  height: 100vh;
+    height: 100vh;
 
-  @media ${mobileDevice} {
-    min-height: calc(100vh - 50px);
+    @media ${mobileDevice} {
+        min-height: calc(100vh - 50px);
 
-    > .ant-layout {
-      height: auto !important;
+        > .ant-layout {
+            height: auto !important;
+        }
     }
-  }
 `
 const StyledContent = styled(Content)`
-  margin: 24px 16px;
-  padding: 24px;
-  background: '#fff';
-  min-height: 280px;
+    margin: 24px 16px;
+    padding: 24px;
+    background: '#fff';
+    min-height: 280px;
 
-  @media ${mobileDevice} {
-    min-height: calc(100vh - 110px);
-  }
+    @media ${mobileDevice} {
+        min-height: calc(100vh - 110px);
+    }
 `
 
 class DashboardTemplate extends React.Component {
-  render() {
-    // TODO: store sider collapsed state in redux store
-    return (
-      <Wrapper>
-        <Layout style={{ height: '100%' }}>
-          <Sider auth={this.props.auth} />
-          <Layout>
-            <StyledHeader signoutUser={this.props.signoutUser} />
-            <StyledContent>{this.props.children}</StyledContent>
-          </Layout>
-        </Layout>
-      </Wrapper>
-    )
-  }
+    render() {
+        // TODO: store sider collapsed state in redux store
+        return (
+            <Wrapper>
+                <Layout style={{ height: '100%' }}>
+                    <Sider auth={this.props.auth} />
+                    <Layout>
+                        <StyledHeader signoutUser={this.props.signoutUser} />
+                        <StyledContent>{this.props.children}</StyledContent>
+                    </Layout>
+                </Layout>
+            </Wrapper>
+        )
+    }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+    auth: state.auth,
 })
 
 export default connect(
-  mapStateToProps,
-  { signoutUser }
+    mapStateToProps,
+    { signoutUser }
 )(DashboardTemplate)

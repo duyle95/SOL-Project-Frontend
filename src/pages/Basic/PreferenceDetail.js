@@ -1,20 +1,10 @@
 import { List, Spin } from 'antd'
+import { isEmpty } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DashboardTemplate from '../../components/Dashboard'
+import getDayOfWeek from '../../helpers/getDayOfWeek'
 import { getUserPreferenceDetail } from '../../modular/ducks/preference'
-
-function getDayOfWeek(num) {
-    return [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ][num - 1]
-}
 
 export class PreferenceDetail extends Component {
     componentDidMount() {
@@ -25,7 +15,7 @@ export class PreferenceDetail extends Component {
             <DashboardTemplate>
                 {this.props.isFetching ? (
                     <Spin size="large" />
-                ) : this.props.preferenceDetail.length !== 0 ? (
+                ) : !isEmpty(this.props.preferenceDetail) ? (
                     <>
                         <h3>Your shift preference detail</h3>
                         <List

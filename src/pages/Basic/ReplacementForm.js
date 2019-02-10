@@ -21,8 +21,6 @@ import {
 } from '../../modular/ducks/replacement'
 import { setupReplacementArr } from '../../services/replacement'
 
-// import './ReplacementForm.css'
-
 const FormItem = Form.Item
 const Option = Select.Option
 

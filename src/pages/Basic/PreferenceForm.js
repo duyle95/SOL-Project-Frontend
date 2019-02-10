@@ -1,7 +1,9 @@
-import { Button, Checkbox, Col, message, Row, Spin } from 'antd'
+import { message, Spin } from 'antd'
+import { isEmpty } from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import DashboardTemplate from '../../components/Dashboard'
+import PreferenceFormTemplate from '../../components/PreferenceFormTemplate'
 import { resetMessage } from '../../modular/ducks/message'
 import {
     getCurrentPreferenceForm,
@@ -25,11 +27,11 @@ function composePreferenceDetail(morning, evening) {
 }
 
 class PreferenceForm extends PureComponent {
-    state = {
-        morning: [],
-        evening: [],
-        loading: false,
-    }
+    // state = {
+    //     morning: [],
+    //     evening: [],
+    //     loading: false,
+    // }
     componentDidMount() {
         // TODO: check if user already has pending shift preference form, then show something else
         this.props.getCurrentPreferenceForm()
@@ -51,21 +53,21 @@ class PreferenceForm extends PureComponent {
         this.props.resetMessage()
     }
 
-    onMorningChange = checkedValues => {
-        this.setState({ morning: checkedValues })
-    }
-    onEveningChange = checkedValues => {
-        this.setState({ evening: checkedValues })
-    }
+    // onMorningChange = checkedValues => {
+    //     this.setState({ morning: checkedValues })
+    // }
+    // onEveningChange = checkedValues => {
+    //     this.setState({ evening: checkedValues })
+    // }
 
-    handleSubmit = () => {
-        this.setState({ loading: true })
-        const preference_detail = composePreferenceDetail(
-            this.state.morning,
-            this.state.evening
-        )
-        this.props.submitPreferenceForm(preference_detail)
-    }
+    // handleSubmit = () => {
+    //     this.setState({ loading: true })
+    //     const preference_detail = composePreferenceDetail(
+    //         this.state.morning,
+    //         this.state.evening
+    //     )
+    //     this.props.submitPreferenceForm(preference_detail)
+    // }
     render() {
         if (this.props.loading) {
             return (
@@ -74,113 +76,15 @@ class PreferenceForm extends PureComponent {
                 </DashboardTemplate>
             )
         } else {
-            // TODO: create new components to show preference forms
             // Basic users have to select at least 4 available shift slots
             return (
                 <DashboardTemplate>
-                    {this.props.preferenceForms.length === 0 ? (
-                        <>
-                            <h1>New Shift Preference Form</h1>
-                            <Row>
-                                <Col span={3} />
-                                <Col span={2}>
-                                    <h4>Mo</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>Tu</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>We</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>Th</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>Fr</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>Sa</h4>
-                                </Col>
-                                <Col span={2}>
-                                    <h4>Su</h4>
-                                </Col>
-                            </Row>
-                            <Checkbox.Group
-                                style={{ width: '100%' }}
-                                onChange={this.onMorningChange}
-                            >
-                                <Row>
-                                    <Col span={3}>
-                                        <h4>Mor</h4>
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={1} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={2} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={3} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={4} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={5} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={6} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={7} />
-                                    </Col>
-                                </Row>
-                            </Checkbox.Group>
-                            <Checkbox.Group
-                                style={{ width: '100%' }}
-                                onChange={this.onEveningChange}
-                            >
-                                <Row>
-                                    <Col span={3}>
-                                        <h4>Eve</h4>
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={1} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={2} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={3} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={4} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={5} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={6} />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Checkbox value={7} />
-                                    </Col>
-                                </Row>
-                            </Checkbox.Group>
-                            <Button
-                                disabled={
-                                    this.state.morning.concat(
-                                        this.state.evening
-                                    ).length < 4
-                                }
-                                onClick={this.handleSubmit}
-                                type="primary"
-                                style={{ marginBottom: 16 }}
-                                loading={this.state.loading}
-                            >
-                                Submit
-                            </Button>
-                        </>
+                    {isEmpty(this.props.preferenceForms) ? (
+                        <PreferenceFormTemplate
+                            submitPreferenceForm={
+                                this.props.submitPreferenceForm
+                            }
+                        />
                     ) : (
                         <>
                             <h2>

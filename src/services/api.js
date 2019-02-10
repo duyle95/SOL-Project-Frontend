@@ -1,9 +1,8 @@
 import { get } from 'lodash'
-import { getErrorActionType, getSuccessActionType } from './axios'
-import { setMessage } from '../modular/ducks/message'
-import history from './history'
-
+// import history from './history'
 import { signoutUser } from '../modular/ducks/auth'
+import { setMessage } from '../modular/ducks/message'
+import { getErrorActionType, getSuccessActionType } from './axios'
 
 const getToken = () => localStorage.getItem('token')
 

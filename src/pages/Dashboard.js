@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 // import { Link } from 'react-router-dom';
-import DashboardTemplate from '../components/Dashboard/';
+import DashboardTemplate from '../components/Dashboard/'
 
 class Dashboard extends React.PureComponent {
     render() {
@@ -12,4 +12,4 @@ class Dashboard extends React.PureComponent {
     }
 }
 
-export default (Dashboard);
+export default Dashboard

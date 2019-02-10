@@ -3,22 +3,11 @@ import moment from 'moment'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DashboardTemplate from '../../components/Dashboard'
+import getDayOfWeek from '../../helpers/getDayOfWeek'
 import { resetMessage } from '../../modular/ducks/message'
 import { updatePreferenceFormAdmin } from '../../modular/ducks/preference'
 
 const FormItem = Form.Item
-
-function getDayOfWeek(num) {
-    return [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ][num - 1]
-}
 
 export class PreferenceReply extends Component {
     state = {
@@ -48,7 +37,6 @@ export class PreferenceReply extends Component {
             message.error('Please select a form to reply to!')
             this.props.history.replace('/admin/preference/all')
         } else {
-            console.log(this.props.location.state)
             const {
                 preference_detail,
                 full_name,
@@ -72,7 +60,6 @@ export class PreferenceReply extends Component {
         e.preventDefault()
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log(values, this.input.textAreaRef.value)
                 this.enterSubmitting()
                 this.props.updatePreferenceFormAdmin({
                     ...values,
@@ -141,7 +128,6 @@ export class PreferenceReply extends Component {
                         {...formItemLayout}
                         label="Your comment/suggestion"
                     >
-                        {/* make the textarea uncontrolled input using ref, as wrapping it with getFieldDecorator will trigger re-render every letter admin types */}
                         <Input.TextArea ref={node => (this.input = node)} />
                     </FormItem>
                     <FormItem wrapperCol={{ span: 12, offset: 6 }}>
