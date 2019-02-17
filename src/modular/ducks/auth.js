@@ -202,12 +202,15 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_USER:
+            console.log(action.payload)
             return { ...state, ...{ user: action.payload } }
         case FETCH_USER_SUCCESS:
+            console.log(action.payload)
             return { ...state, ...{ user: action.payload.data } }
         case SIGNIN_REQUEST:
             return { ...state, ...action.payload }
         case SIGNIN_SUCCESS:
+            console.log(action.payload)
             return { ...state, ...action.payload }
         case SIGNIN_FAILURE:
             return { ...state, ...action.payload }

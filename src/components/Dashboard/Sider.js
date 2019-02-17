@@ -61,10 +61,10 @@ class CustomSider extends React.Component {
         switch (this.props.auth.user.role) {
             case 'admin':
                 return [
-                    <Menu.Item key="1">
-                        <Icon type="schedule" />
-                        <span>Scheduler</span>
-                    </Menu.Item>,
+                    // <Menu.Item key="1">
+                    //     <Icon type="schedule" />
+                    //     <span>Scheduler</span>
+                    // </Menu.Item>,
                     <Menu.Item
                         key="2"
                         onClick={() =>
@@ -83,18 +83,18 @@ class CustomSider extends React.Component {
                         <Icon type="file-text" />
                         <span>Employees' shift preference</span>
                     </Menu.Item>,
-                    <Menu.Item key="4">
-                        <Icon type="project" />
-                        <span>Events</span>
-                    </Menu.Item>,
+                    // <Menu.Item key="4">
+                    //     <Icon type="project" />
+                    //     <span>Events</span>
+                    // </Menu.Item>,
                 ]
             // https://github.com/ant-design/ant-design/issues/6576#issuecomment-398355506
             case 'basic':
                 return [
-                    <Menu.Item key="1">
-                        <Icon type="schedule" />
-                        <span>Shifts</span>
-                    </Menu.Item>,
+                    // <Menu.Item key="1">
+                    //     <Icon type="schedule" />
+                    //     <span>Shifts</span>
+                    // </Menu.Item>,
                     <SubMenu
                         key="sub1"
                         title={
@@ -153,10 +153,10 @@ class CustomSider extends React.Component {
                             Your current shift preference
                         </Menu.Item>
                     </SubMenu>,
-                    <Menu.Item key="6">
-                        <Icon type="project" />
-                        <span>Events</span>
-                    </Menu.Item>,
+                    // <Menu.Item key="6">
+                    //     <Icon type="project" />
+                    //     <span>Events</span>
+                    // </Menu.Item>,
                 ]
             default:
                 return []
